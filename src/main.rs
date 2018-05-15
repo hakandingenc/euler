@@ -1,7 +1,7 @@
 extern crate euler;
-use euler::problem_one;
+use euler::problem_two::*;
 
 fn main() {
-    let result = problem_one::multiples_of_3_and_5(1000);
+    let result = problem_two_script(4_000_000);
     println!("{}", result);
 }
