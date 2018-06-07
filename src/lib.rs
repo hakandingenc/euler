@@ -25,7 +25,7 @@ pub mod problem_two {
             .enumerate()
             .filter(|(index, _)| index % 3 == 1)
             .map(|(_, element)| element)
-            .fold(0, |acc, el| acc + el)
+            .sum()
     }
 
     pub fn problem_two_script(n: u32) -> u32 {
