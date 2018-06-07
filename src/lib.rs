@@ -40,7 +40,7 @@ pub mod problem_three {
         let n = Cell::new(n);
         let mut div = 0;
         (2..=n.get())
-            .take_while(|a| a <= &n.get())
+            .take_while(|_| n.get() > 1)
             .filter(|a| n.get() % a == 0)
             .for_each(|a| {
                 while n.get() % a == 0 {
