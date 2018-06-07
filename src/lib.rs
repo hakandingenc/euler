@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 pub mod problem_one {
     pub fn multiples_of_3_and_5(n: u32) -> u32 {
         (0..n)
@@ -30,5 +28,26 @@ pub mod problem_two {
 
     pub fn problem_two_script(n: u32) -> u32 {
         calculate_sum_even_fibo(allocate_fibo(n))
+    }
+}
+
+pub mod problem_three {
+    use std::cell::Cell;
+
+    pub fn largest_prime_divisor(n: u64) -> u64 {
+        // Need to use cell since `take_while` and `filter` borrows `n` immutably
+        // but `for_each` mutably
+        let n = Cell::new(n);
+        let mut div = 0;
+        (2..=n.get())
+            .take_while(|a| a <= &n.get())
+            .filter(|a| n.get() % a == 0)
+            .for_each(|a| {
+                while n.get() % a == 0 {
+                    n.set(n.get() / a);
+                }
+                div = a;
+            });
+        div
     }
 }
