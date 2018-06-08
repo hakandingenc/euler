@@ -55,8 +55,6 @@ pub mod problem_three {
 }
 
 pub mod problem_four {
-    use std::cell::Cell;
-
     struct ThreeDigitPair((u32, u32));
 
     impl ThreeDigitPair {
