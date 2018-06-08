@@ -51,3 +51,71 @@ pub mod problem_three {
         div
     }
 }
+
+pub mod problem_four {
+    use std::cell::Cell;
+
+    struct ThreeDigitPair((u32, u32));
+
+    impl ThreeDigitPair {
+        fn new(a: u32, b: u32) -> Option<Self> {
+            if num_digits(a) == 3 && num_digits(b) == 3 {
+                Some(ThreeDigitPair((a, b)))
+            } else {
+                None
+            }
+        }
+    }
+    impl Iterator for ThreeDigitPair {
+        type Item = (u32, u32);
+        fn next(&mut self) -> Option<(u32, u32)> {
+            match self.0 {
+                (a, b) if a == 1000 && b == 1000 => None,
+                (a, b) if b == 1000 => {
+                    (self.0).0 += 1;
+                    (self.0).1 = 0;
+                    Some((a, b))
+                }
+                (a, b) => {
+                    (self.0).1 += 1;
+                    Some((a, b))
+                }
+            }
+        }
+    }
+
+    fn is_palindrome(n: u32) -> bool {
+        let n_str = n.to_string();
+        let bytes = n_str.as_bytes();
+        let len = bytes.len();
+        let last_index = len - 1;
+        let mid_index = len / 2;
+        bytes
+            .into_iter()
+            .enumerate()
+            .take_while(|tuple| tuple.0 <= mid_index)
+            .all(|tuple| tuple.1 == &bytes[last_index - tuple.0])
+    }
+
+    fn num_digits(n: u32) -> usize {
+        ((n as f32).log10() + 1.).floor() as usize
+    }
+
+    pub fn problem_four_script() -> u32 {
+        let mut n = 0;
+        let new_pair = ThreeDigitPair::new(100, 100).unwrap();
+        let new_mult = Cell::new(0);
+        new_pair
+            .filter(|pair| {
+                let compt = pair.0 * pair.1;
+                if is_palindrome(compt) && compt > new_mult.get() {
+                    new_mult.set(compt);
+                    true
+                } else {
+                    false
+                }
+            })
+            .for_each(|_| n = new_mult.get());
+        n
+    }
+}
