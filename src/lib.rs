@@ -123,3 +123,9 @@ pub mod problem_five {
         (1..=n).fold(1, |acc, n| lcm(acc, n))
     }
 }
+
+pub mod problem_six {
+    pub fn sum_square_difference(n: u32) -> u32 {
+        (1..=n).sum::<u32>().pow(2) - (1..=n).map(|n| n.pow(2)).sum::<u32>()
+    }
+}
