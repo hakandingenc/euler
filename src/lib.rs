@@ -1,3 +1,5 @@
+#![feature(iterator_step_by)]
+
 extern crate num_integer;
 
 pub mod problem_one {
@@ -204,5 +206,27 @@ pub mod problem_nine {
             })
             .collect()
     }
+}
 
+pub mod problem_ten {
+    use std::cell::Cell;
+
+    pub fn sum_of_primes(n: u64) -> u64 {
+        let sieve: Vec<Cell<bool>> = vec![Cell::new(true); (n - 2) as usize];
+
+        (2..n)
+            .filter(|u| *u <= (n as f64).sqrt() as u64)
+            .filter(|u| sieve[(u - 2) as usize].get())
+            .for_each(|u| {
+                (u.pow(2)..n)
+                    .step_by(u as usize)
+                    .for_each(|u| sieve[(u - 2) as usize].set(false))
+            });
+        sieve
+            .into_iter()
+            .enumerate()
+            .filter(|pair| pair.1.get())
+            .map(|pair| (pair.0 + 2) as u64)
+            .sum::<u64>()
+    }
 }

@@ -44,4 +44,8 @@ mod tests {
     fn problem_nine() {
         assert_eq!(problem_nine::pythagorean_triplet(1000), vec![(200, 375)]);
     }
+    #[test]
+    fn problem_ten() {
+        assert_eq!(problem_ten::sum_of_primes(2_000_000), 142913828922);
+    }
 }
