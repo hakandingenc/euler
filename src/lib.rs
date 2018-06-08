@@ -5,14 +5,14 @@ pub mod problem_one {
         (0..n)
             .into_iter()
             .filter(|el| (el % 3) == 0 || (el % 5) == 0)
-            .fold(0, |acc, x| acc + x)
+            .sum()
     }
 }
 
 pub mod problem_two {
     fn allocate_fibo(n: u32) -> Vec<u32> {
         let mut vec = vec![1, 2];
-        while vec.last().unwrap() <= &n {
+        while *vec.last().unwrap() <= n {
             let len = vec.len();
             let new_num = vec[len - 2] + vec[len - 1];
             vec.push(new_num);
@@ -20,7 +20,7 @@ pub mod problem_two {
         vec
     }
 
-    fn calculate_sum_even_fibo(vec: Vec<u32>) -> u32 {
+    fn calculate_sum_even_fibo(vec: &[u32]) -> u32 {
         vec.iter()
             .enumerate()
             .filter(|(index, _)| index % 3 == 1)
@@ -29,7 +29,7 @@ pub mod problem_two {
     }
 
     pub fn problem_two_script(n: u32) -> u32 {
-        calculate_sum_even_fibo(allocate_fibo(n))
+        calculate_sum_even_fibo(&allocate_fibo(n))
     }
 }
 
@@ -125,7 +125,7 @@ pub mod problem_five {
     use num_integer::lcm;
 
     pub fn smallest_multiple(n: u32) -> u32 {
-        (1..=n).fold(1, |acc, n| lcm(acc, n))
+        (1..=n).fold(1, lcm)
     }
 }
 
@@ -146,10 +146,10 @@ pub mod problem_seven {
 }
 
 pub mod problem_eigth {
-    pub fn adjacent_products(num_str: String, n: usize) -> u64 {
+    pub fn adjacent_products(num_str: &str, n: usize) -> u64 {
         let chars_vec: Vec<u64> = num_str
             .chars()
-            .map(|c| c.to_digit(10).unwrap() as u64)
+            .map(|c| u64::from(c.to_digit(10).unwrap()))
             .collect();
         let len = chars_vec.len();
         (0..=len - n)
@@ -195,7 +195,7 @@ pub mod problem_nine {
         new_pair
             .take_while(|pair| pair.1 <= sum)
             .filter_map(|pair| {
-                let sqrt = ((pair.0.pow(2) + pair.1.pow(2)) as f64).sqrt();
+                let sqrt = f64::from(pair.0.pow(2) + pair.1.pow(2)).sqrt();
                 if sqrt.fract() == 0. && pair.0 + pair.1 + sqrt as u32 == sum {
                     Some((pair.0, pair.1))
                 } else {
