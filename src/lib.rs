@@ -158,3 +158,51 @@ pub mod problem_eigth {
             .unwrap()
     }
 }
+
+pub mod problem_nine {
+    use problem_four::num_digits;
+
+    struct AtMostThreeDigitPair((u32, u32));
+
+    impl AtMostThreeDigitPair {
+        fn new(a: u32, b: u32) -> Option<Self> {
+            if num_digits(a) <= 3 && num_digits(b) <= 3 && a < b {
+                Some(AtMostThreeDigitPair((a, b)))
+            } else {
+                None
+            }
+        }
+    }
+    impl Iterator for AtMostThreeDigitPair {
+        type Item = (u32, u32);
+        fn next(&mut self) -> Option<(u32, u32)> {
+            match self.0 {
+                (a, b) if a == 999 && b == 1000 => None,
+                (a, b) if a + 1 == b => {
+                    (self.0).0 = 1;
+                    (self.0).1 += 1;
+                    Some((a, b))
+                }
+                (a, b) => {
+                    (self.0).0 += 1;
+                    Some((a, b))
+                }
+            }
+        }
+    }
+    pub fn pythagorean_triplet(sum: u32) -> Vec<(u32, u32)> {
+        let new_pair = AtMostThreeDigitPair::new(0, 1).unwrap();
+        new_pair
+            .take_while(|pair| pair.1 <= sum)
+            .filter_map(|pair| {
+                let sqrt = ((pair.0.pow(2) + pair.1.pow(2)) as f64).sqrt();
+                if sqrt.fract() == 0. && pair.0 + pair.1 + sqrt as u32 == sum {
+                    Some((pair.0, pair.1))
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+}
