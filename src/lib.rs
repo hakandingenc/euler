@@ -140,3 +140,16 @@ pub mod problem_seven {
     }
 }
 
+pub mod problem_eigth {
+    pub fn adjacent_products(num_str: String, n: usize) -> u64 {
+        let chars_vec: Vec<u64> = num_str
+            .chars()
+            .map(|c| c.to_digit(10).unwrap() as u64)
+            .collect();
+        let len = chars_vec.len();
+        (0..=len - n)
+            .map(|u| chars_vec[u..u + n].into_iter().product::<u64>())
+            .max()
+            .unwrap()
+    }
+}
