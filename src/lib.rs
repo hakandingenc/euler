@@ -1,3 +1,5 @@
+extern crate num_integer;
+
 pub mod problem_one {
     pub fn multiples_of_3_and_5(n: u32) -> u32 {
         (0..n)
@@ -111,5 +113,13 @@ pub mod problem_four {
             }
         });
         new_mult.get()
+    }
+}
+
+pub mod problem_five {
+    use num_integer::lcm;
+
+    pub fn smallest_multiple(n: u32) -> u32 {
+        (1..=n).fold(1, |acc, n| lcm(acc, n))
     }
 }

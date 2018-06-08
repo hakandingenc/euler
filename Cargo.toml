@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["Hakan Dingenc <hakan.dingenc@u.northwestern.edu>"]
 
 [dependencies]
+num-integer = "0.1.38"
