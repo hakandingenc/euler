@@ -145,7 +145,7 @@ pub mod problem_seven {
     }
 }
 
-pub mod problem_eigth {
+pub mod problem_eight {
     pub fn adjacent_products(num_str: &str, n: usize) -> u64 {
         let chars_vec: Vec<u64> = num_str
             .chars()

@@ -36,7 +36,7 @@ mod tests {
     #[test]
     fn problem_eight() {
         assert_eq!(
-            problem_eigth::adjacent_products(PROBLEM_8_STR, 13),
+            problem_eight::adjacent_products(PROBLEM_8_STR, 13),
             23514624000
         );
     }
