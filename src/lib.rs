@@ -129,3 +129,14 @@ pub mod problem_six {
         (1..=n).sum::<u32>().pow(2) - (1..=n).map(|n| n.pow(2)).sum::<u32>()
     }
 }
+
+pub mod problem_seven {
+    pub fn nth_prime(n: usize) -> u64 {
+        (2..).filter(|u| is_prime(*u)).take(n).last().unwrap()
+    }
+
+    fn is_prime(n: u64) -> bool {
+        !(2..n).any(|u| n % u == 0)
+    }
+}
+
