@@ -99,20 +99,23 @@ pub mod problem_four {
             .all(|tuple| tuple.1 == &bytes[last_index - tuple.0])
     }
 
-    fn num_digits(n: u32) -> usize {
+    pub fn num_digits(n: u32) -> usize {
         ((n as f32).log10() + 1.).floor() as usize
     }
 
     pub fn problem_four_script() -> u32 {
         let new_pair = ThreeDigitPair::new(100, 100).unwrap();
-        let new_mult = Cell::new(0);
-        new_pair.for_each(|pair| {
-            let compt = pair.0 * pair.1;
-            if is_palindrome(compt) && compt > new_mult.get() {
-                new_mult.set(compt);
-            }
-        });
-        new_mult.get()
+        new_pair
+            .filter_map(|pair| {
+                let compt = pair.0 * pair.1;
+                if is_palindrome(compt) {
+                    Some(compt)
+                } else {
+                    None
+                }
+            })
+            .max()
+            .unwrap()
     }
 }
 
