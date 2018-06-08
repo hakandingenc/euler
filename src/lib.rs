@@ -98,7 +98,11 @@ pub mod problem_four {
     }
 
     pub fn num_digits(n: u32) -> usize {
-        ((n as f32).log10() + 1.).floor() as usize
+        if n == 0 {
+            1
+        } else {
+            ((n as f32).log10() + 1.).floor() as usize
+        }
     }
 
     pub fn problem_four_script() -> u32 {
