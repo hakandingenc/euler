@@ -102,20 +102,14 @@ pub mod problem_four {
     }
 
     pub fn problem_four_script() -> u32 {
-        let mut n = 0;
         let new_pair = ThreeDigitPair::new(100, 100).unwrap();
         let new_mult = Cell::new(0);
-        new_pair
-            .filter(|pair| {
-                let compt = pair.0 * pair.1;
-                if is_palindrome(compt) && compt > new_mult.get() {
-                    new_mult.set(compt);
-                    true
-                } else {
-                    false
-                }
-            })
-            .for_each(|_| n = new_mult.get());
-        n
+        new_pair.for_each(|pair| {
+            let compt = pair.0 * pair.1;
+            if is_palindrome(compt) && compt > new_mult.get() {
+                new_mult.set(compt);
+            }
+        });
+        new_mult.get()
     }
 }
